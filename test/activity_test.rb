@@ -30,10 +30,30 @@ class ActivityTest < Minitest::Test
   end
 
   def test_total_cost
-    @brunch.add_participant("Maria", 20)
-    @brunch.add_participant("Luther", 40)
+    add_maria_and_luther
 
     assert_equal 60, @brunch.total_cost
+  end
+
+  def test_split
+    add_maria_and_luther
+
+    assert_equal 30, @brunch.split
+  end
+
+  def test_owed
+    add_maria_and_luther
+
+    expected = {"Maria" => 10, "Luther" => -10}
+    assert_equal expected, @brunch.owed
+  end
+
+
+  #------------- Helper Methods -------------#
+
+  def add_maria_and_luther
+    @brunch.add_participant("Maria", 20)
+    @brunch.add_participant("Luther", 40)
   end
 
 end
